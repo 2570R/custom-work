@@ -397,7 +397,7 @@ void mtp(Pose target, bool forwards, double maxSpeed, bool exit, double exitDist
     is_moving = false;
 
 }
-
+//motion.movePose(3, -0.25, 90, 0, 0, 0, 0.5, 5000);
 void mtpose(Pose target, bool forwards, double dLead, double gLead, double chasePower, double maxSpeed, bool exit, double exitDistRange, double minSpeed, double timeout){
     is_moving = true;
     stopChassis(vex::brakeType::coast);
@@ -467,7 +467,6 @@ void mtpose(Pose target, bool forwards, double dLead, double gLead, double chase
         }
         if (exit && closeEnd && pose.distance(end) < 0.7) distanceOutput *= cos(DTR(pose.face(targetPose, false)));
         distanceOutput = copysign(clamp(fabs(distanceOutput), fabs(minSpeed) * 12000.0, 12000.0), distanceOutput);
-
         float radius = getRadius(pose, targetPose) / std::fmin(pose.distance(targetPose), 1);
         float maxSlipSpeed = sqrt(chasePower * radius * 1000000);
         if (chasePower != -1 && (!closeEnd || pose.distance(end) >= 0.7)) distanceOutput = clamp(distanceOutput, -maxSlipSpeed, maxSlipSpeed);

@@ -133,5 +133,3 @@ const std::string Logger::format(const char * const format, va_list args) const 
     va_end(args);
     return std::string(zc.data(), len);
 }
-
- // namespace tao
