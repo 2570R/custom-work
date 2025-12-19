@@ -27,6 +27,7 @@ public:
     float angle(Pose other) const;
     Pose rotate(float angle) const;
     float face(Pose other, bool rad = false);
+    float parallel(float target);
     float parallel(Pose other);
 };
 

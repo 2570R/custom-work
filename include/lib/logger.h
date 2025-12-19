@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 #include <functional>
-#include <cstdarg>
+#include <stdarg.h>
 
 class Logger {
 public:

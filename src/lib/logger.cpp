@@ -6,7 +6,7 @@
 #include <stdexcept>
 #include <functional>
 #include <vector>
-#include <cstdarg>
+#include <stdarg.h>
 #include <cstdio>
 #include <memory>
 
@@ -22,7 +22,6 @@ void Logger::log(Level level, const char* format, va_list args) const {
 	if (level >= this->level) {
 		std::string message = this->format(format, args);
 		va_end(args);
-
 		if (level == Level::TELEMETRY) {
 			output_stream
 				<< "\033[s[2570R_BEGIN_TELEMETRY]"

@@ -51,6 +51,11 @@ float Pose::parallel(Pose other) {
     return rollAngle180(other.theta - this->theta);
 }
 
+float Pose::parallel(float target){
+
+    return rollAngle180(target - this->theta);
+}
+
 bool hc(Pose pose, Pose target, float theta, float tolerance) {
     return (pose.y - target.y) * -cos(DTR(theta)) >= sin(DTR(theta)) * (pose.x - target.x) + tolerance;
 }

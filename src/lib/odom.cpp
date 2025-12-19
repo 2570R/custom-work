@@ -2,6 +2,8 @@
 
 Pose odomPose(0,0,0);
 Pose odomSpeed(0,0,0);
+std::vector<Pose> positions;
+std::vector<float> angles;
 
 Pose getPose(){
     return odomPose;
@@ -13,6 +15,30 @@ void setPose(double x, double y, double theta){
     odomPose.theta = theta;
 }
 
+void updateVelocities(){
+    positions.push_back(Pose(odomPose.x, odomPose.y));
+    if (positions.size() > 4) positions.erase(positions.begin());
+    angles.push_back(inertial_sensor.rotation(deg));
+    if (angles.size() > 4) angles.erase(angles.begin());
+}
+
+float getVelocityX() {
+    //returns approximated velocity on the horizontal axis in units per second
+
+    return (!positions.empty()) ? (positions.back().x - positions.front().x) * (100.0 / positions.size()) : 0;
+}
+
+
+float getVelocityY() {
+    //returns approximated velocity on the vertical axis in units per second
+
+    return (!positions.empty()) ? (positions.back().y - positions.front().y) * (100.0 / positions.size()) : 0;
+}
+
+float getSpeed() {
+
+    return sqrt(pow(getVelocityX(), 2) + pow(getVelocityY(), 2));
+}
 void update(){
     //---
     resetChassis();
@@ -61,9 +87,7 @@ void update(){
         prev_x = x_in;
         prev_y = y_in;
 
-        odomPose.x = x_in;
-        odomPose.y = y_in;
-        odomPose.theta = getInertialReading(true);
+        updateVelocities();
 
         // calculate speed
         odomSpeed.x = ema((odomPose.x - prev_x) / 0.01, odomSpeed.x, 0.95);

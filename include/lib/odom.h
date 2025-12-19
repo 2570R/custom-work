@@ -4,6 +4,7 @@
 #include "utils.h"
 #include "robot-config.h"
 #include "pose.h"
+#include <vector>
 
 using namespace vex;
 
@@ -15,4 +16,5 @@ extern Pose odomSpeed;
 Pose getPose();
 void setPose(double x, double y, double theta = 0.0);
 void update();
+float getSpeed();
 
