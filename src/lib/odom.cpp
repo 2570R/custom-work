@@ -81,6 +81,10 @@ void update(){
         x_in += polar_radius_in * sin(polar_angle_rad);
         y_in += polar_radius_in * cos(polar_angle_rad);
         
+        odomPose.x = x_in;
+        odomPose.y = y_in;
+        odomPose.theta = getInertialReading(true);
+        
         prev_heading_rad = heading_rad;
         prev_left_deg = left_deg;
         prev_right_deg = right_deg;
